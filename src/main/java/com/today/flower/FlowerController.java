@@ -3,13 +3,17 @@ package com.today.flower;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.RequiredArgsConstructor;
+
+@RequestMapping("/flower")
+@RequiredArgsConstructor
 @Controller
 public class FlowerController {
-	@GetMapping("/flower")
-	@ResponseBody
+	
+	@GetMapping("/main")
 	public String hello() {
-		return "today`s flower";
+		return "main";
 	}
 }
