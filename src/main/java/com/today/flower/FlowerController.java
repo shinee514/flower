@@ -13,7 +13,12 @@ import lombok.RequiredArgsConstructor;
 public class FlowerController {
 	
 	@GetMapping("/main")
-	public String hello() {
+	public String main() {
 		return "main";
+	}
+	
+	@GetMapping("/")
+	public String root() {
+		return "redirect:/flower/main";
 	}
 }

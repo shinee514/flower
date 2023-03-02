@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +17,12 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class StoreController {
 	
-	private final StoreRepository storeRepository;
 	private final StoreService storeService;
 	
 	
 	@GetMapping("/regi")
     public String list(Model model) {
-        List<Store> storeList = this.storeRepository.findAll();
+        List<Store> storeList = this.storeService.getList();
         model.addAttribute("storeList", storeList);
         return "store_regi";
     }
