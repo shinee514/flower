@@ -15,5 +15,7 @@ public class Delivery {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	
+	private String order;
 
 }
