@@ -1,11 +1,13 @@
 package com.today.flower.storeitem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,7 +26,7 @@ public class StoreItemService {
 		//이미지등록
 		for(int i=0; i<storeItemImgFileList.size(); i++) {
 			StoreItemImg storeItemImg = new StoreItemImg();
-			storeItemImg.setStoreitem(storeItem);
+			storeItemImg.setStoreItem(storeItem);
 			if(i == 0) {
 				storeItemImg.setRepimgYn("Y");
 			}else {
@@ -34,5 +36,21 @@ public class StoreItemService {
 		}
 		return storeItem.getId();
 	}
+
+    @Transactional(readOnly = true)
+    public StoreItemFormDto getItemDtl(Long storeItemId){
+        List<StoreItemImg> storeItemImgList = storeItemImgRepository.findByStoreItemIdOrderByIdAsc(storeItemId);
+        List<StoreItemImgDto> storeItemImgDtoList = new ArrayList<>();
+        for (StoreItemImg storeItemImg : storeItemImgList) {
+        	StoreItemImgDto itemImgDto = StoreItemImgDto.of(storeItemImg);
+            storeItemImgDtoList.add(itemImgDto);
+        }
+
+        StoreItem storeItem = storeItemRepository.findById(storeItemId)
+                .orElseThrow(EntityNotFoundException::new);
+        StoreItemFormDto storeItemFormDto = StoreItemFormDto.of(storeItem);
+        storeItemFormDto.setStoreItemImgDtoList(storeItemImgDtoList);
+        return storeItemFormDto;
+    }
 
 }

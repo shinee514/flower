@@ -13,13 +13,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="storeitem_img")
+@Table(name="storeItem_img")
 @Getter
 @Setter
 public class StoreItemImg {
 	
 	@Id
-    @Column(name="storeitem_img_id")
+    @Column(name="storeItem_img_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -32,8 +32,8 @@ public class StoreItemImg {
     private String repimgYn; //대표 이미지 여부
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "storeitem_id")
-    private StoreItem storeitem;
+    @JoinColumn(name = "storeItem_id")
+    private StoreItem storeItem;
 
     public void updateItemImg(String oriImgName, String imgName, String imgUrl){
         this.oriImgName = oriImgName;
