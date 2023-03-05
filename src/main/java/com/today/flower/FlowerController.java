@@ -12,9 +12,13 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class FlowerController {
 	
-	@GetMapping("/main")
-	public String main() {
-		return "main";
+	@GetMapping("/ci")
+	public String ci() {
+		return "ci/ci";
+	}
+	@GetMapping("/home")
+	public String home() {
+		return "home/home1";
 	}
 	
 	@GetMapping("/")

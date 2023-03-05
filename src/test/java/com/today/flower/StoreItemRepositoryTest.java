@@ -20,7 +20,7 @@ public class StoreItemRepositoryTest {
 	@DisplayName("상품 저장 테스트")
 	public void createItemTest() {
 		StoreItem storeItem = new StoreItem();
-		storeItem.setItemName("테스트 상품");
+		storeItem.setItemNm("테스트 상품");
 		storeItem.setPrice(10000);
 		storeItem.setItemDetail("테스트 상품 상세 설명");
 		storeItem.setItemSellStatus(ItemSellStatus.SELL);

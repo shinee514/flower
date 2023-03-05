@@ -1,10 +1,13 @@
 package com.today.flower.storeitem;
 
+
 import com.today.flower.ItemSellStatus;
 import com.today.flower.store.Store;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,7 +32,7 @@ public class StoreItem {
 	private Long id;
 	
 	@Column(nullable = false, length = 50)
-	private String itemName;
+	private String itemNm;
 	
 	@Column(name="price", nullable = false)
 	private int price;
@@ -40,10 +43,18 @@ public class StoreItem {
 	@Lob
 	@Column(nullable = false)
 	private String itemDetail;
-	
+
 	private ItemSellStatus itemSellStatus;
 	
 	@ManyToOne
 	@JoinColumn(name = "store_id")
 	private Store store;
+	
+	public void updateItem(StoreItemFormDto storeItemFormDto) {
+		this.itemNm = storeItemFormDto.getItemNm();
+		this.price = storeItemFormDto.getPrice();
+		this.stockNumber = storeItemFormDto.getStockNumber();
+		this.itemDetail = storeItemFormDto.getItemDetail();
+		this.itemSellStatus = storeItemFormDto.getItemSellStatus();
+	}
 }

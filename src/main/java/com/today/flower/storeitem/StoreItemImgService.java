@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.today.flower.FileService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -37,4 +38,20 @@ public class StoreItemImgService {
 		storeItemImg.updateItemImg(oriImgName, imgName, imgUrl);
 		storeItemImgRepository.save(storeItemImg);
 	}
-}
+	
+	public void updateItemImg(Long storeItemImgId, MultipartFile storeItemImgFile)
+		throws Exception{
+			if(!storeItemImgFile.isEmpty()) {
+				StoreItemImg savedStoreItemImg = storeItemImgRepository.findById(storeItemImgId)
+												 .orElseThrow(EntityNotFoundException::new);
+				//기존 이미지 파일 삭제
+				if(!StringUtils.isEmpty(savedStoreItemImg.getImgName())) {
+					fileService.deleteFile(storeItemImgLocation+"/"+savedStoreItemImg.getImgName());
+				}
+				String oriImgName = storeItemImgFile.getOriginalFilename();
+				String imgName = fileService.uploadFile(storeItemImgLocation, oriImgName, storeItemImgFile.getBytes());
+				String imgUrl = "/images/item/" + imgName;
+				savedStoreItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+			}
+		}
+	}

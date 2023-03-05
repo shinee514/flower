@@ -42,8 +42,8 @@ public class StoreItemService {
         List<StoreItemImg> storeItemImgList = storeItemImgRepository.findByStoreItemIdOrderByIdAsc(storeItemId);
         List<StoreItemImgDto> storeItemImgDtoList = new ArrayList<>();
         for (StoreItemImg storeItemImg : storeItemImgList) {
-        	StoreItemImgDto itemImgDto = StoreItemImgDto.of(storeItemImg);
-            storeItemImgDtoList.add(itemImgDto);
+        	StoreItemImgDto storeItemImgDto = StoreItemImgDto.of(storeItemImg);
+            storeItemImgDtoList.add(storeItemImgDto);
         }
 
         StoreItem storeItem = storeItemRepository.findById(storeItemId)
@@ -52,5 +52,6 @@ public class StoreItemService {
         storeItemFormDto.setStoreItemImgDtoList(storeItemImgDtoList);
         return storeItemFormDto;
     }
+    
 
 }
