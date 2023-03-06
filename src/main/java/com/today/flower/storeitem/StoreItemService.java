@@ -53,5 +53,21 @@ public class StoreItemService {
         return storeItemFormDto;
     }
     
+    public Long updateItem(StoreItemFormDto storeItemFormDto, List<MultipartFile> storeItemImgFileList) throws Exception{
+    	
+    	//상품 수정
+    	StoreItem storeItem = storeItemRepository.findById(storeItemFormDto.getId())
+    				         .orElseThrow(EntityNotFoundException::new);
+    	storeItem.updateItem(storeItemFormDto);
+    	
+    	List<Long> storeItemImgIds = storeItemFormDto.getStoreItemImgIds();
+    	
+    	//이미지 등록
+    	for(int i=0;i<storeItemImgFileList.size();i++) {
+    		storeItemImgService.updateItemImg(storeItemImgIds.get(i), storeItemImgFileList.get(i));
+    	}
+    	return storeItem.getId();
+    }
+    
 
 }

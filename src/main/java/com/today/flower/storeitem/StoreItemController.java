@@ -61,4 +61,23 @@ public class StoreItemController {
 		}
 		return "storeItemForm";
 	}
+	
+	@PostMapping(value = "/admin/item/{storeItemId}")
+	public String itemUpdate(@Valid StoreItemFormDto storeItemFormDto, BindingResult bindingResult, @RequestParam("storeItemImgFile") List<MultipartFile> storeItemImgFileList, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return "storeItemForm";
+		}
+		if(storeItemImgFileList.get(0).isEmpty() && storeItemFormDto.getId() == null) {
+			model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
+			return "storeItemForm";
+		}
+		try {
+			storeItemService.updateItem(storeItemFormDto, storeItemImgFileList);
+		}catch (Exception e) {
+			model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
+			return "storeItemForm";
+		}
+		return "redirect:/";
+	}
 }
