@@ -1,5 +1,8 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">메인화면</h5>
+	<div class="mb-3">
+            <input readonly th:value="*{store.storeName}"  class="form-control">
+        </div>
 </div>
 </html>

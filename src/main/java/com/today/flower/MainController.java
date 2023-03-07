@@ -9,9 +9,4 @@ import com.today.flower.storeitem.StoreItemService;
 @Controller
 public class MainController {
 	
-    @GetMapping(value = "/")
-    public String main() {
-        return "main";
-    }
-
 }

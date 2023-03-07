@@ -26,9 +26,9 @@ import lombok.ToString;
 public class Store {
 	
 	@Id
-	@Column(name = "store_id")
+	@Column(name="store_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer storeId;
 	
 	@Column(unique = true)
 	private String storeName;

@@ -1,9 +1,13 @@
 package com.today.flower.store;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -26,5 +30,13 @@ public class StoreService {
         s.setFreeDelivery(freeDelivery);
         s.setPickupTime(pickupTime);
         this.storeRepository.save(s);
+    }
+	
+	@Transactional(readOnly = true)
+    public StoreFormDto getStoreDtl(Integer storeId){
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(EntityNotFoundException::new);
+        StoreFormDto storeFormDto = StoreFormDto.of(store);
+        return storeFormDto;
     }
 }
