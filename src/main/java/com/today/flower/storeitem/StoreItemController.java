@@ -23,14 +23,23 @@ import lombok.RequiredArgsConstructor;
 public class StoreItemController {
 	
 	private final StoreItemService storeItemService;
-	
+	private final StoreService storeService;
+	/*
 	@GetMapping(value= "/admin/item/new")
 	public String storeItemForm(Model model) {
 		model.addAttribute("storeItemFormDto", new StoreItemFormDto());
 		return "storeItemForm";
 	}
+	*/
+	@GetMapping(value= "/store/{storeId}")
+	public String storeItemForm(Model model, @PathVariable("storeId")Integer storeId) {
+		StoreFormDto storeFormDto = storeService.getStoreDtl(storeId);
+		model.addAttribute("storeItemFormDto", new StoreItemFormDto());
+		model.addAttribute("store", storeFormDto);
+		return "storeItemForm";
+	}
 	
-	@PostMapping(value= "/admin/item/new")
+	@PostMapping(value= "/store/{storeId}")
 	public String itemNew(@Valid StoreItemFormDto storeItemFormDto, BindingResult bindingResult, Model model, @RequestParam("storeItemImgFile") List<MultipartFile> storeItemImgFileList) {
 		
 		if(bindingResult.hasErrors()) {

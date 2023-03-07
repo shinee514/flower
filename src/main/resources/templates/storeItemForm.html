@@ -51,7 +51,7 @@
 
 
 <div layout:fragment="content">
-
+	<input readonly th:value="*{storeId}">
     <form role="form" method="post" enctype="multipart/form-data" th:object="${storeItemFormDto}">
 
         <p class="h2">
@@ -64,9 +64,8 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">업체명</span>
             </div>
-            <input type="text" th:field="*{store}" class="form-control" placeholder="업체명을 입력해주세요">
+            <input th:value="*{store}">
         </div>
-        <p th:if="${#fields.hasErrors('store')}" th:errors="*{store}" class="fieldError">Incorrect data</p>
 		
         <div class="form-group">
             <select th:field="*{itemSellStatus}" class="custom-select">
