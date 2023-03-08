@@ -1,9 +1,9 @@
 package com.today.flower.store;
 
-import org.modelmapper.ModelMapper;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.today.flower.storeitem.StoreItem;
-import com.today.flower.storeitem.StoreItemFormDto;
+import org.modelmapper.ModelMapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,10 +18,17 @@ public class StoreFormDto {
 		
 		private String storeAddr;
 		
-		 private static ModelMapper modelMapper = new ModelMapper();
+		private List<StoreImgDto> storeImgDtoList = new ArrayList<>();
+		
+		private List<Long> storeImgIds = new ArrayList<>();
+		
+		private static ModelMapper modelMapper = new ModelMapper();
+		
+		public Store createStore(){
+	        return modelMapper.map(this, Store.class);
+	    }
 
-
-		    public static StoreFormDto of(Store store){
+		public static StoreFormDto of(Store store){
 		        return modelMapper.map(store,StoreFormDto.class);
 		    }
 }
