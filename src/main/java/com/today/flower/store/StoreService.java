@@ -45,6 +45,14 @@ public class StoreService {
         return storeFormDto;
     }
 	
+	@Transactional(readOnly = true)
+    public StoreForm getStoreDtlD(Integer storeId){
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(EntityNotFoundException::new);
+        StoreForm storeForm = StoreForm.of(store);
+        return storeForm;
+    }
+	
 	public Integer saveStore(StoreForm storeForm, List<MultipartFile> storeImgFileList) throws Exception{
 		//상품등록
 		Store store = storeForm.createStore();
@@ -58,6 +66,7 @@ public class StoreService {
 			}else {
 				storeImg.setRepimgYn("N");
 			}
+			System.out.println( storeImgFileList.get(i) + "~~~~~~TestTEST"  );
 			storeImgService.saveStoreImg(storeImg, storeImgFileList.get(i));
 		}
 		return store.getStoreId();

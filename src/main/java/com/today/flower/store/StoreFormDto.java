@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +19,21 @@ public class StoreFormDto {
 		
 		private String storeAddr;
 		
-		private List<StoreImgDto> storeImgDtoList = new ArrayList<>();
+	    private String openTime;
+	    
+	    private String minAmount;
+	    
+	    private String deliveryTips;
+	    
+	    private String freeDelivery;
+	    
+	    private String pickupTime;
 		
-		private List<Long> storeImgIds = new ArrayList<>();
+		public List<StoreImgDto> storeImgDtoList = new ArrayList<>();
 		
-		private static ModelMapper modelMapper = new ModelMapper();
+		public List<Long> storeImgIds = new ArrayList<>();
+		
+		public static ModelMapper modelMapper = new ModelMapper();
 		
 		public Store createStore(){
 	        return modelMapper.map(this, Store.class);

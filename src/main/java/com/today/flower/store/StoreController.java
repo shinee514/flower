@@ -72,4 +72,12 @@ public class StoreController {
 			
 			return "redirect:/store/regi";
 		}
+		
+		@GetMapping(value="/{storeId}")
+		public String storeDtl(Model model, @PathVariable("storeId") Integer storeId) {
+			StoreForm storeForm = storeService.getStoreDtlD(storeId);
+			model.addAttribute("store", storeForm);
+			return "storeDtl";
+		}
+		
 }

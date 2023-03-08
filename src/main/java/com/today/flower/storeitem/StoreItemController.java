@@ -31,7 +31,7 @@ public class StoreItemController {
 		return "storeItemForm";
 	}
 	*/
-	@GetMapping(value= "/store/{storeId}")
+	@GetMapping(value= "/store/item/{storeId}")
 	public String storeItemForm(Model model, @PathVariable("storeId")Integer storeId) {
 		StoreFormDto storeFormDto = storeService.getStoreDtl(storeId);
 		model.addAttribute("storeItemFormDto", new StoreItemFormDto());
@@ -39,7 +39,7 @@ public class StoreItemController {
 		return "storeItemForm";
 	}
 	
-	@PostMapping(value= "/store/{storeId}")
+	@PostMapping(value= "/store/item/{storeId}")
 	public String itemNew(@Valid StoreItemFormDto storeItemFormDto, BindingResult bindingResult, Model model, @RequestParam("storeItemImgFile") List<MultipartFile> storeItemImgFileList) {
 		
 		if(bindingResult.hasErrors()) {

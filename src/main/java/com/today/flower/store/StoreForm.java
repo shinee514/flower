@@ -48,8 +48,8 @@ public class StoreForm {
         return modelMapper.map(this, Store.class);
     }
 
-	public static StoreFormDto of(Store store){
-	        return modelMapper.map(store,StoreFormDto.class);
+	public static StoreForm of(Store store){
+	        return modelMapper.map(store,StoreForm.class);
 	    }
    
 	
