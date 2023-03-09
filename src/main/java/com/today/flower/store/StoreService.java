@@ -1,6 +1,7 @@
 package com.today.flower.store;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class StoreService {
 	
 	private final StoreRepository storeRepository;
+	private final StoreImgRepository storeImgRepository;
 	private final StoreImgService storeImgService;
 	
 	public List<Store> getList(){
@@ -47,6 +49,12 @@ public class StoreService {
 	
 	@Transactional(readOnly = true)
     public StoreForm getStoreDtlD(Integer storeId){
+		List<StoreImg> storeImgList = storeImgRepository.findByIdOrderByIdAsc(storeId);
+        List<StoreImgDto> storeImgDtoList = new ArrayList<>();
+        for (StoreImg storeImg : storeImgList) {
+            StoreImgDto storeImgDto = StoreImgDto.of(storeImg);
+            storeImgDtoList.add(storeImgDto);
+        }
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(EntityNotFoundException::new);
         StoreForm storeForm = StoreForm.of(store);
@@ -66,7 +74,6 @@ public class StoreService {
 			}else {
 				storeImg.setRepimgYn("N");
 			}
-			System.out.println( storeImgFileList.get(i) + "~~~~~~TestTEST"  );
 			storeImgService.saveStoreImg(storeImg, storeImgFileList.get(i));
 		}
 		return store.getStoreId();

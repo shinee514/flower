@@ -31,7 +31,7 @@ public class StoreImgService {
 		//파일업로드
 		if(!StringUtils.isEmpty(oriImgName)) {
 			imgName = fileService.uploadFile(storeImgLocation, oriImgName, storeImgFile.getBytes());
-			imgUrl = "/images/item" + imgName;
+			imgUrl = "/images/store/" + imgName;
 		}
 		
 		//상품 이미지 정보 저장
@@ -50,7 +50,7 @@ public class StoreImgService {
 				}
 				String oriImgName = storeImgFile.getOriginalFilename();
 				String imgName = fileService.uploadFile(storeImgLocation, oriImgName, storeImgFile.getBytes());
-				String imgUrl = "/images/item/" + imgName;
+				String imgUrl = "/images/store/" + imgName;
 				savedStoreImg.updateStoreImg(oriImgName, imgName, imgUrl);
 			}
 		}
