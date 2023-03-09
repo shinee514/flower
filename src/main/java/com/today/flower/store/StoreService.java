@@ -23,6 +23,7 @@ public class StoreService {
 		return this.storeRepository.findAll();
 	}
 	
+	
 	public void create(String storeName, String storeAddr, String openTime, String minAmount, String deliveryTips, String freeDelivery, String pickupTime) {
         Store s = new Store();
         s.setStoreName(storeName);

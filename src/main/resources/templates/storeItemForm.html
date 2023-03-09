@@ -58,7 +58,6 @@
         </p>
 
         <input type="hidden" th:field="*{id}">
-		
         <div class="form-group">
             <select th:field="*{itemSellStatus}" class="custom-select">
                 <option value="SELL">판매중</option>
@@ -118,7 +117,7 @@
         </div>
 
         <div th:if="${#strings.isEmpty(storeItemFormDto.id)}" style="text-align: center">
-            <button th:formaction="@{/admin/item/new}" type="submit" class="btn btn-primary">저장</button>
+            <button th:formaction="@{/store/item/{storeId}}" type="submit" class="btn btn-primary">저장</button>
         </div>
         <div th:unless="${#strings.isEmpty(storeItemFormDto.id)}" style="text-align: center">
             <button th:formaction="@{'/admin/item/' + ${storeItemFormDto.id} }" type="submit" class="btn btn-primary">수정</button>
