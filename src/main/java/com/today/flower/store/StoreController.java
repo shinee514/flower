@@ -79,5 +79,4 @@ public class StoreController {
 			model.addAttribute("store", storeFormDto);
 			return "storeDtl";
 		}
-		
 }
