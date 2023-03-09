@@ -47,24 +47,24 @@ public class StoreController {
 	 
 	 @GetMapping(value = "/create")
 	    public String storeForm(Model model){
-	        model.addAttribute("storeForm", new StoreForm());
+	        model.addAttribute("storeFormDto", new StoreFormDto());
 	        return "store_create";
 	    }
 		
 		@PostMapping(value= "/create")
-		public String storeNew(@Valid StoreForm storeForm, BindingResult bindingResult, Model model, @RequestParam("storeImgFile") List<MultipartFile> storeImgFileList) {
+		public String storeNew(@Valid StoreFormDto storeFormDto, BindingResult bindingResult, Model model, @RequestParam("storeImgFile") List<MultipartFile> storeImgFileList) {
 			
 			if(bindingResult.hasErrors()) {
 				return "store_create";
 			}
 			
-			if(storeImgFileList.get(0).isEmpty() && storeForm.getStoreId() == null) {
+			if(storeImgFileList.get(0).isEmpty() && storeFormDto.getStoreId() == null) {
 				model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
 				return "store_create";
 			}
 			
 			try {
-				storeService.saveStore(storeForm, storeImgFileList);
+				storeService.saveStore(storeFormDto, storeImgFileList);
 			}catch(Exception e) {
 				model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
 				return "store_create";
@@ -75,8 +75,8 @@ public class StoreController {
 		
 		@GetMapping(value="/{storeId}")
 		public String storeDtl(Model model, @PathVariable("storeId") Integer storeId) {
-			StoreForm storeForm = storeService.getStoreDtlD(storeId);
-			model.addAttribute("store", storeForm);
+			StoreFormDto storeFormDto = storeService.getStoreDtl(storeId);
+			model.addAttribute("store", storeFormDto);
 			return "storeDtl";
 		}
 		

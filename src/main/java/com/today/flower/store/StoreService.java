@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.today.flower.storeitem.StoreItem;
-import com.today.flower.storeitem.StoreItemFormDto;
-import com.today.flower.storeitem.StoreItemImg;
-
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -41,14 +37,6 @@ public class StoreService {
 	
 	@Transactional(readOnly = true)
     public StoreFormDto getStoreDtl(Integer storeId){
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(EntityNotFoundException::new);
-        StoreFormDto storeFormDto = StoreFormDto.of(store);
-        return storeFormDto;
-    }
-	
-	@Transactional(readOnly = true)
-    public StoreForm getStoreDtlD(Integer storeId){
 		List<StoreImg> storeImgList = storeImgRepository.findByIdOrderByIdAsc(storeId);
         List<StoreImgDto> storeImgDtoList = new ArrayList<>();
         for (StoreImg storeImg : storeImgList) {
@@ -57,13 +45,14 @@ public class StoreService {
         }
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(EntityNotFoundException::new);
-        StoreForm storeForm = StoreForm.of(store);
-        return storeForm;
+        StoreFormDto storeFormDto = StoreFormDto.of(store);
+        storeFormDto.setStoreImgDtoList(storeImgDtoList);
+        return storeFormDto;
     }
 	
-	public Integer saveStore(StoreForm storeForm, List<MultipartFile> storeImgFileList) throws Exception{
+	public Integer saveStore(StoreFormDto storeFormDto, List<MultipartFile> storeImgFileList) throws Exception{
 		//상품등록
-		Store store = storeForm.createStore();
+		Store store = storeFormDto.createStore();
 		storeRepository.save(store);
 		//이미지등록
 		for(int i=0; i<storeImgFileList.size(); i++) {
