@@ -68,4 +68,20 @@ public class StoreService {
 		}
 		return store.getStoreId();
 	}
+	
+	public Integer updateStore(StoreFormDto storeFormDto, List<MultipartFile> storeImgFileList) throws Exception{
+		
+		//상품수정
+		Store store = storeRepository.findById(storeFormDto.getStoreId())
+				      .orElseThrow(EntityNotFoundException::new);
+		store.updateStore(storeFormDto);
+		
+		List<Long> storeImgIds = storeFormDto.getStoreImgIds();
+				
+		//이미지 등록
+		for(int i=0;i<storeImgFileList.size();i++) {
+			storeImgService.updateStoreImg(storeImgIds.get(i), storeImgFileList.get(i));
+		}
+		return store.getStoreId();
+	}
 }

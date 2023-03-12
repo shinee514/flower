@@ -48,4 +48,14 @@ public class Store {
 	
 	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
 	private List<StoreItem> storeItems = new ArrayList<>();
+	
+	public void updateStore(StoreFormDto storeFormDto) {
+		this.storeName = storeFormDto.getStoreName();
+		this.storeAddr = storeFormDto.getStoreAddr();
+		this.openTime = storeFormDto.getOpenTime();
+		this.minAmount =  storeFormDto.getMinAmount();
+		this.deliveryTips = storeFormDto.getDeliveryTips();
+		this.freeDelivery = storeFormDto.getFreeDelivery();
+		this.pickupTime = storeFormDto.getPickupTime();
+	}
 }
