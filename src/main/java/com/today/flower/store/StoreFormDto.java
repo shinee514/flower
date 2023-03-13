@@ -40,7 +40,7 @@ private Integer storeId;
     
 	private List<StoreImgDto> storeImgDtoList = new ArrayList<>();
 	
-	private List<Long> storeImgIds = new ArrayList<>();
+	private List<Integer> storeImgIds = new ArrayList<>();
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	

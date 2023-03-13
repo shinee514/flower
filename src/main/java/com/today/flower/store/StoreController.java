@@ -1,7 +1,11 @@
 package com.today.flower.store;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -112,4 +116,18 @@ public class StoreController {
 			model.addAttribute("store", storeFormDto);
 			return "storeDtl";
 		}
+		
+		@GetMapping(value = {"/admin/stores", "/admin/stores/{page}"})
+		public String storemanage(StoreSearchDto storeSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+			Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+			
+			Page<Store> stores=
+					storeService.getStorePage(storeSearchDto, pageable);
+			model.addAttribute("stores", stores);
+			model.addAttribute("storeSearchDto", storeSearchDto);
+			model.addAttribute("maxPage",5);
+			return "storeMng";
+		}
+		
+		
 }

@@ -4,6 +4,8 @@ package com.today.flower.store;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,12 +78,22 @@ public class StoreService {
 				      .orElseThrow(EntityNotFoundException::new);
 		store.updateStore(storeFormDto);
 		
-		List<Long> storeImgIds = storeFormDto.getStoreImgIds();
+		List<Integer> storeImgIds = storeFormDto.getStoreImgIds();
 				
 		//이미지 등록
 		for(int i=0;i<storeImgFileList.size();i++) {
 			storeImgService.updateStoreImg(storeImgIds.get(i), storeImgFileList.get(i));
 		}
 		return store.getStoreId();
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<Store> getStorePage(StoreSearchDto storeSearchDto, Pageable pageable){
+		return storeRepository.getStorePage(storeSearchDto, pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<MainStoreDto> getMainStorePage(StoreSearchDto storeSearchDto, Pageable pageable){
+		return storeRepository.getMainStorePage(storeSearchDto, pageable);
 	}
 }

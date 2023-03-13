@@ -38,7 +38,7 @@ public class StoreImgService {
 		storeImgRepository.save(storeImg);
 	}
 	
-	public void updateStoreImg(Long storeImgId, MultipartFile storeImgFile)
+	public void updateStoreImg(Integer storeImgId, MultipartFile storeImgFile)
 		throws Exception{
 			if(!storeImgFile.isEmpty()) {
 				StoreImg savedStoreImg = storeImgRepository.findById(storeImgId)

@@ -21,7 +21,7 @@ public class StoreImg {
 	@Id
     @Column(name="store_img_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     private String imgName; //이미지 파일명
 
